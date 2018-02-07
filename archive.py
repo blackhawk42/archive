@@ -9,7 +9,7 @@ shortopts = 'ztgbxh'
 longopts = ('zip', 'tar', 'gz', 'bz2', 'xz', 'help')
 avaiable_formats = shutil.get_archive_formats()
 
-USAGE_STRING = 'Usage: {} [options] DIR1 [DIRN...]\nOptions:\n'.format(sys.argv[0])
+USAGE_STRING = 'Usage: {} [options] DIR1 [DIRN...]\nOptions:\n'.format( os.path.basename(sys.argv[0]) )
 
 for s, l in zip(shortopts, longopts):
 	USAGE_STRING += '   -{}, --{}\n'.format(s,l)
@@ -28,7 +28,12 @@ if __name__ == '__main__':
 		print(e.msg, file=sys.stdout)
 		print(USAGE_STRING, file=sys.stderr)
 		sys.exit(2)
-	# Possible algos: zip, tar, gztar, bztar, xztar
+	
+	if len(args) == 0:
+		print('error: no target directory to archive', file=sys.stderr)
+		print(USAGE_STRING, file=sys.stderr)
+		sys.exit(0)
+	
 	archive_format = 'zip'
 	for opt, arg in opts:
 		if opt in ('-z', '--zip'):

@@ -29,11 +29,6 @@ if __name__ == '__main__':
 		print(USAGE_STRING, file=sys.stderr)
 		sys.exit(2)
 	
-	if len(args) == 0:
-		print('error: no target directory to archive', file=sys.stderr)
-		print(USAGE_STRING, file=sys.stderr)
-		sys.exit(0)
-	
 	archive_format = 'zip'
 	for opt, arg in opts:
 		if opt in ('-z', '--zip'):
@@ -49,6 +44,11 @@ if __name__ == '__main__':
 		elif opt in ('-h', '--help'):
 			print(USAGE_STRING, file=sys.stderr)
 			sys.exit(0)
+			
+	if len(args) == 0:
+		print('error: no target directory to archive', file=sys.stderr)
+		print(USAGE_STRING, file=sys.stderr)
+		sys.exit(0)
 	
 	# Checking if format is valid
 	invalid_format = True
